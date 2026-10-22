@@ -194,9 +194,16 @@ export default function App() {
           <div className="p-2 bg-indigo-500/10 border border-indigo-500/20 rounded-lg text-indigo-400">
             <Shield className="w-6 h-6 text-indigo-400" />
           </div>
-          <span className="font-bold text-lg tracking-wide text-white">
-            Perimeter Defense
-          </span>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="font-bold text-lg tracking-wide text-white">
+                Perimeter Defense
+              </span>
+              <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30 hidden sm:inline-block">
+                Amazon Ring + AWS
+              </span>
+            </div>
+          </div>
         </div>
 
         {/* Right: Country Settings Dropdown */}
@@ -265,11 +272,11 @@ export default function App() {
               {/* Overlay Badges */}
               <div className="absolute top-4 left-4 flex items-center gap-2 bg-slate-900/80 backdrop-blur px-3 py-1 rounded-md border border-slate-700/80 text-xs text-slate-300">
                 <Radio className="w-3.5 h-3.5 text-red-500 animate-pulse" />
-                <span className="font-mono font-medium">CAM-01 • FRONT YARD</span>
+                <span className="font-mono font-medium">CAM-01 • RING DOORBELL PRO</span>
               </div>
               <div className="absolute top-4 right-4 flex items-center gap-1.5 bg-slate-900/80 backdrop-blur px-2.5 py-1 rounded-md border border-slate-700/80 text-xs font-mono text-slate-400">
                 <Clock className="w-3 h-3 text-slate-400" />
-                <span>1080P • 30FPS</span>
+                <span>1080P • AWS SYNC</span>
               </div>
 
               {/* Feed Placeholder Graphic */}
@@ -278,8 +285,8 @@ export default function App() {
                   <Video className="w-12 h-12 text-slate-400" />
                 </div>
                 <div className="text-center">
-                  <p className="text-sm font-medium text-slate-300">Live Camera Feed</p>
-                  <p className="text-xs text-slate-500">Continuous optical surveillance active</p>
+                  <p className="text-sm font-medium text-slate-300">Amazon Ring Live Feed</p>
+                  <p className="text-xs text-slate-500">Continuous surveillance • AWS AppSync real-time telemetry</p>
                 </div>
               </div>
 

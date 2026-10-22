@@ -1,8 +1,7 @@
-# Perimeter Defense (Ring Defense)
+# 🛡️ Perimeter Defense (Ring Defense)
+### Next-Gen Real-Time Incident Response Powered by Amazon Ring & AWS Amplify
 
-An automated home security and perimeter defense dashboard built with React, Vite, Tailwind CSS, Lucide icons, AWS Amplify Gen 2, and Express.
-
-The system connects physical Ring camera hardware and localized AI/motion-detection triggers to an instant, real-time threat incident response interface.
+Built for the **Amazon Developer Hackathon**, **Perimeter Defense** connects physical **Amazon Ring** camera devices and localized threat detection with **AWS Amplify Gen 2**, **Amazon DynamoDB**, and **AWS AppSync** to turn standard passive security alerts into an instant, mission-critical incident dispatch battle station.
 
 ---
 
@@ -18,20 +17,59 @@ To allow judges to evaluate the localized Incident Response Dashboard without ne
 
 ---
 
-## 🚀 Architecture Overview
+## ☁️ Built with the Amazon & AWS Ecosystem
 
-1. **Hardware & Motion Detection:**
-   - Physical Ring camera triggers on motion or AI facial covering detection (balaclava/intruder).
-2. **Localized Webhook & Ingestion (`webhook.js`):**
-   - Express server listening on port `3000` receives motion/event payloads.
-   - Formats the event into a standardized `RingAlert` item.
-   - Writes directly to Amazon DynamoDB using `@aws-sdk/client-dynamodb`.
-3. **Cloud Infrastructure (AWS Amplify Gen 2):**
-   - AppSync GraphQL and DynamoDB data schema (`amplify/data/resource.ts`) defining the `RingAlert` model.
-   - Real-time GraphQL subscription for active threat alerts with public API key authorization.
-4. **Incident Response Dashboard (`src/App.tsx`):**
-   - **Monitoring State:** Clean dark-mode surveillance UI (`bg-slate-900`) with live camera placeholder, system status badge, and chronological event logs.
-   - **Active Threat State:** Instant UI transformation with flashing red alert (`bg-red-600`), intruder snapshot with high-contrast border, audible alarm siren, emergency call dispatch CTA mapped to regional emergency numbers (UK: 999, US: 911, EU: 112, AUS: 000), and false-alarm dismissal.
+| Technology | Amazon / AWS Component | Role in Architecture |
+|---|---|---|
+| **Amazon Ring** | Video Doorbell & Security Grid | Physical edge device capturing intrusion motion & face covering events |
+| **AWS Amplify Gen 2** | Code-First CDK / TypeScript Backend | Defines and provisions cloud resources with zero context switching (`amplify/`) |
+| **AWS AppSync** | Managed GraphQL Subscriptions | Real-time WebSocket connection to push sub-second threat alerts directly to the browser |
+| **Amazon DynamoDB** | Serverless NoSQL Database | Ultra-low latency ingestion store for active threat records (`RingAlert` model) |
+| **AWS SDK for JavaScript v3** | `@aws-sdk/client-dynamodb` | High-efficiency modular client utilized in `webhook.js` for instant event writing |
+
+---
+
+## 🏗️ Architecture & Data Pipeline
+
+```
+┌────────────────────────┐
+│   Amazon Ring Device   │  (Physical Camera / Edge Motion Detection)
+└───────────┬────────────┘
+            │ Webhook POST / HTTP Event
+            ▼
+┌────────────────────────┐
+│  Express Ingestion API │  (`webhook.js` on port 3000)
+│   (AWS SDK v3 Client)  │  Validates & maps intrusion payload
+└───────────┬────────────┘
+            │ PutItemCommand
+            ▼
+┌────────────────────────┐
+│    Amazon DynamoDB     │  Stores `RingAlert` records with TTL & status
+└───────────┬────────────┘
+            │ AppSync Data Source
+            ▼
+┌────────────────────────┐
+│      AWS AppSync       │  Managed GraphQL WebSocket Engine
+│   (Amplify Gen 2 API)  │  Dispatches `onCreate` subscription events
+└───────────┬────────────┘
+            │ Real-time Subscription Stream
+            ▼
+┌────────────────────────┐
+│    React Dashboard     │  (`src/App.tsx`)
+│ (Tailwind CSS + Icons) │  Instantly triggers aggressive visual & audio alarm
+└────────────────────────┘
+```
+
+---
+
+## 🚀 Key Features
+
+1. **Active Threat Elevation:**
+   - Moves beyond standard push notifications by immediately converting the interface into an emergency command HUD with an aggressive pulsing red alarm, siren audio, and high-contrast intruder imagery.
+2. **Instant Emergency Dispatch CTA:**
+   - Direct integration via regional telephone protocols (`tel:${emergencyNumber}`) with dynamic routing for UK (`999`), US (`911`), EU (`112`), and Australia (`000`).
+3. **Developer Simulation Mode:**
+   - Built-in simulation trigger (`x` key or the on-screen "Simulate Threat" button) allowing hackathon evaluators to test UI state transitions without requiring physical perimeter hardware.
 
 ---
 
