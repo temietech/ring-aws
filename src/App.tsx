@@ -16,15 +16,22 @@ import {
   ChevronDown
 } from 'lucide-react'
 
-// Configure Amplify with generated outputs
+// Configure Amplify with generated outputs safely
 try {
-  Amplify.configure(outputs)
+  if (outputs && Object.keys(outputs).length > 0) {
+    Amplify.configure(outputs)
+  }
 } catch (e) {
   console.warn('Amplify configure notice:', e)
 }
 
-// Generate data client
-const client = generateClient<Schema>()
+// Generate data client safely
+let client: ReturnType<typeof generateClient<Schema>> | null = null
+try {
+  client = generateClient<Schema>()
+} catch (e) {
+  console.warn('Amplify client notice:', e)
+}
 
 type CountryCode = 'UK' | 'US' | 'EU' | 'AUS'
 
